@@ -1,0 +1,29 @@
+[33mcommit fecf5ae29670c96f80fc7f8736c345ce5c4883ba[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Alexander Nazarov <naa@oplot48.ru>
+Date:   Sat Jun 25 01:28:15 2022 +0300
+
+    fix: сдача на второе ревью 10 ПР
+
+[33mcommit 3e4f565f2ea776ddaa91b86000e3ddbfcdcf9078[m
+Author: Alexander Nazarov <naa@oplot48.ru>
+Date:   Sat Jun 25 00:46:22 2022 +0300
+
+    feat: сдача на 1 проверку 10 ПР
+
+[33mcommit 4d340dcec9ea2b4543ccf939c5c27305405adfc3[m
+Author: Alexander Nazarov <naa@oplot48.ru>
+Date:   Fri Jun 24 21:03:37 2022 +0300
+
+    fix: сдача на 1 ревью 10 ПР
+
+[33mcommit 26af431efed57aa3db68e02ba5aa674c08d94e67[m
+Author: Alexander Nazarov <naa@oplot48.ru>
+Date:   Fri Jun 24 20:10:52 2022 +0300
+
+    feat: собран весь функционал 10 ПР
+
+[33mcommit ef0188220f620f87c050295ee8273ed5ce1a3ea9[m
+Author: AlexanderNazar <97851785+AlexanderNazar@users.noreply.github.com>
+Date:   Sat Jun 18 00:54:54 2022 +0300
+
+    Initial commit
