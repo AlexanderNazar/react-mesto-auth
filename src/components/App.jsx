@@ -49,9 +49,11 @@ function App() {
   }
 
   useEffect(() => {
-    getUserInfo();
-    getInitialCards();
-  }, [])
+    if (isLoggedIn) {
+      getUserInfo();
+      getInitialCards();
+    }
+  }, [isLoggedIn])
 
   function handleEditAvatarPopupOpen() {
     setIsEditAvatarPopup(true);
