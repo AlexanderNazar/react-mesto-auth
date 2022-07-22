@@ -14,8 +14,7 @@ import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/Auth';
-import PopupSuccess from './PopupSuccess';
-import PopupFail from './PopupFail';
+import PopupAttestation from './PopupAttestation';
 
 function App() {
 
@@ -24,7 +23,6 @@ function App() {
   const [isAddPlacePopup, setIsAddPlacePopup] = useState(false);
   const [isConfirmPopup, setIsConfirmPopup] = useState(false);
   const [isSuccessPopup, setIsSuccessPopup] = useState(false);
-  const [isFailPopup, setIsFailPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -34,6 +32,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPressSign, setIsPressSign] = useState(false);
   const [email, setEmail] = useState('');
+  const [isAttestationPopup, setIsAttestationPopup ] = useState(false);
 
   const history = useHistory();
 
@@ -66,14 +65,6 @@ function App() {
     setIsAddPlacePopup(true);
   }
 
-  function handleSuccessPopup() {
-    setIsSuccessPopup(true);
-  }
-
-  function handleFailPopup() {
-    setIsFailPopup(true);
-  }
-
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -85,15 +76,12 @@ function App() {
     setIsConfirmPopup(false);
     setSelectedCard(null);
     setIsValidDefault(false);
+    setIsAttestationPopup(false);
   }
 
   function closeSuccessPopup() {
-    setIsSuccessPopup(false);
+    setIsAttestationPopup(false);
     history.push('/sign-in');
-  }
-
-  function closeFailPopup() {
-    setIsFailPopup(false);
   }
 
   function handleValid() {
@@ -175,8 +163,31 @@ function App() {
     localStorage.removeItem('token');
   }
 
-  function handleLoggedIn() {
-    setIsLoggedIn(true);
+  function handleAutorisation({ password, email }) {
+    auth.authorization({ password, email })
+    .then(data => {
+      if (data.token) {
+        setIsLoggedIn(true);
+        localStorage.setItem('token', data.token);
+        history.push('/');
+      }
+    })
+    .catch(() => {
+      setIsSuccessPopup(false);
+      setIsAttestationPopup(true);
+    })
+  }
+
+  function handleRegistration({ password, email }) {
+    auth.registration({ password, email })
+      .then(() => {
+        setIsSuccessPopup(true);
+        setIsAttestationPopup(true);
+      })
+      .catch(() => {
+        setIsSuccessPopup(false);
+        setIsAttestationPopup(true);
+      })
   }
 
   function tokenCheck() {
@@ -253,22 +264,19 @@ function App() {
             } />
           <Route path="/sign-in">
             <Login
-              setIsLoggedIn={handleLoggedIn}
-              onFailPopup={handleFailPopup}
+              onAutorisation={handleAutorisation}
               validDefault={isValidDefault}
               setValidDefault={handleValid}
               offValideDefault={handleInvalidDefault} />
-            <PopupFail name="fail" isOpen={isFailPopup} onClose={closeFailPopup} />
+            <PopupAttestation isName={isSuccessPopup} isOpen={isAttestationPopup} onClose={closeAllPopups} onCloseSuccess={closeAllPopups} />
           </Route>
           <Route path="/sign-up">
             <Register
-              onSuccessPopup={handleSuccessPopup}
-              onFailPopup={handleFailPopup}
+              onRegistration={handleRegistration}
               validDefault={isValidDefault}
               setValidDefault={handleValid}
               offValideDefault={handleInvalidDefault} />
-            <PopupSuccess name="success" isOpen={isSuccessPopup} onClose={closeSuccessPopup} />
-            <PopupFail name="fail" isOpen={isFailPopup} onClose={closeFailPopup} />
+            <PopupAttestation isName={isSuccessPopup} isOpen={isAttestationPopup} onClose={closeAllPopups} onCloseSuccess={closeSuccessPopup} />
           </Route>
         </Switch>
       </div>

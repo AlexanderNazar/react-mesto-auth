@@ -77,7 +77,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                 placeholder="Ваше имя"
                 minLength="2"
                 maxLength="40"
-                value={name ? name : ""}
+                value={name || ""}
                 onChange={handleChangeName} />
               <span id="name-error" className="popup__error">{validTextName}</span>
               <input
@@ -89,7 +89,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                 placeholder="Ваша профессия"
                 minLength="2"
                 maxLength="200"
-                value={description ? description : ""}
+                value={description || ""}
                 onChange={handleChangeDescription} />
               <span id="name-error" className="popup__error">{validTextDescription}</span>
             </>

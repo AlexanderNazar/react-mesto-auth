@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
-import * as auth from '../utils/Auth';
 
-function Login({ setIsLoggedIn, onFailPopup, validDefault, setValidDefault, offValideDefault }) {
+function Login({ onAutorisation, validDefault, setValidDefault, offValideDefault }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,17 +32,9 @@ function Login({ setIsLoggedIn, onFailPopup, validDefault, setValidDefault, offV
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth.authorization({ password, email })
-      .then(data => {
-        if (data.token) {
-          setEmail('');
-          setPassword('');
-          setIsLoggedIn();
-          localStorage.setItem('token', data.token);
-          history.push('/');
-        }
-      })
-      .catch(() => onFailPopup())
+    onAutorisation({ password, email });
+    setEmail('');
+    setPassword('');
   }
 
   useEffect(() => {
@@ -59,7 +50,7 @@ function Login({ setIsLoggedIn, onFailPopup, validDefault, setValidDefault, offV
           type="email"
           id="email"
           name="email"
-          value={email ? email : ""}
+          value={email || ""}
           onChange={handleChangeEmail}
           required
           placeholder="Email" />
@@ -69,7 +60,7 @@ function Login({ setIsLoggedIn, onFailPopup, validDefault, setValidDefault, offV
           type="password"
           id="password"
           name="password"
-          value={password ? password : ""}
+          value={password || ""}
           onChange={handleChangePassword}
           required
           placeholder="Пароль"

@@ -1,8 +1,8 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as auth from '../utils/Auth';
 
-function Register({ onSuccessPopup, onFailPopup, validDefault, setValidDefault, offValideDefault }) {
+function Register({ onRegistration, validDefault, setValidDefault, offValideDefault }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,7 +11,6 @@ function Register({ onSuccessPopup, onFailPopup, validDefault, setValidDefault, 
   const [validTextEmail, setValidTextEmail] = useState('');
   const [validTextPassword, setValidTextPassword] = useState('');
 
-  const history = useHistory();
   const buttonSubmitClassName = !validityForm() ? "content-sign__save-button content-sign__save-button_invalid" : "content-sign__save-button";
 
   function handleChangeEmail(evt) {
@@ -28,18 +27,14 @@ function Register({ onSuccessPopup, onFailPopup, validDefault, setValidDefault, 
   }
 
   function validityForm() {
-    return  validDefault && isValidEmail && isValidPassword;
+    return validDefault && isValidEmail && isValidPassword;
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth.registration({ password, email })
-      .then(() => {
-        setEmail('');
-        setPassword('');
-        onSuccessPopup();
-      })
-      .catch(() => onFailPopup())
+    setEmail('');
+    setPassword('');
+    onRegistration({ password, email });
   }
 
   useEffect(() => {
@@ -55,7 +50,7 @@ function Register({ onSuccessPopup, onFailPopup, validDefault, setValidDefault, 
           type="email"
           id="email"
           name="email"
-          value={email ? email : ""}
+          value={email || ""}
           onChange={handleChangeEmail}
           required
           placeholder="Email" />
@@ -66,7 +61,7 @@ function Register({ onSuccessPopup, onFailPopup, validDefault, setValidDefault, 
           id="password"
           name="password"
           required
-          value={password ? password : ""}
+          value={password || ""}
           onChange={handleChangePassword}
           placeholder="Пароль"
           minLength="8" />

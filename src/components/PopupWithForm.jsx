@@ -1,6 +1,6 @@
 function PopupWithForm({ name, title, textButton, isOpen, onClose, onSubmit, isValid, children }) {
 
-  const popupClassName = `popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`;
+  const popupClassName = `popup popup_type_${name} ${isOpen && "popup_opened"}`;
   const popupContainerClassName = `popup__container popup__container_type_${name}`;
   const popupFormClassName = `popup__form popup__form_type_${name}`;
   const popupButtonSubmitClassName = !isValid ? "popup__save-button popup__save-button_invalid" : "popup__save-button";

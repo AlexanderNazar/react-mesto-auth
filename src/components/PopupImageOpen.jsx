@@ -1,6 +1,6 @@
 function PopupImageOpen({ card, onClose }) {
 
-  const imagePreviewClassName = `popup popup_type_preview ${!!card ? "popup_opened" : ""}`;
+  const imagePreviewClassName = `popup popup_type_preview ${!!card && "popup_opened"}`;
   const cardLink = !!card ? card.link : "";
   const cardName = !!card ? card.name : "";
 

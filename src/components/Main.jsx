@@ -24,13 +24,13 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike
         <button type="button" className="profile__add-button" aria-label="Добавить" onClick={onAddPlace} />
       </section>
       <section className="elements">
-        {cards.map(card => <Card
+        {cards.map(card => (<Card
           key={card._id}
           card={card}
           onCardClick={onCardClick}
           onCardLike={onCardLike}
           onCardDelete={onCardDelete}
-        />)}
+        />))}
       </section>
     </main>
   )
